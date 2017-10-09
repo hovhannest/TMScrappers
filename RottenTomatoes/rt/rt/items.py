@@ -12,3 +12,30 @@ class RtItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
+
+
+class MovieItem(scrapy.Item):
+    sourceURL = scrapy.Field()
+    name = scrapy.Field()
+    year = scrapy.Field()
+    info
+    Rating
+    Genre
+    DirectedBy
+    WrittenBy
+    InTheaters
+    BoxOffice
+    Runtime
+    Studio
+
+    webSyte
+
+    posterImage
+
+    videos
+    photos
+
+
+class Person(scrapy.Item):
+    name
+    url
