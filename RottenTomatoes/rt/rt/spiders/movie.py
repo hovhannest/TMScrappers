@@ -21,4 +21,53 @@ class MovieSpider(scrapy.Spider):
             if('Rating' in liName):
                 movie['Rating'] = li.css('div.meta-value::text').extract_first()
             elif 'Genre' in liName:
-                print(li.css('div.meta-value a::text').extract())
+                gl = ""
+                for genre in li.css('div.meta-value a::text').extract():
+                    if gl != "":
+                        gl += ","
+                    gl += re.findall(r'\S+.*', genre)[0]
+                movie["Genre"] = gl
+            elif 'Directed' in liName:
+                ll = ""
+                nl = ""
+                for a in li.css('div.meta-value a'):
+                    if ll != "":
+                        ll += ","
+                    if nl != "":
+                        nl += ","
+                    ll += a.css("::attr(href)").extract_first()
+                    nl += a.css("::text").extract_first()
+                movie["DirectedBy_url"] = ll
+                movie["DirectedBy"] = nl
+            elif 'Written' in liName:
+                ll = ""
+                nl = ""
+                for a in li.css('div.meta-value a'):
+                    if ll != "":
+                        ll += ","
+                    if nl != "":
+                        nl += ","
+                    ll += a.css("::attr(href)").extract_first()
+                    nl += a.css("::text").extract_first()
+                movie["WrittenBy_url"] = ll
+                movie["WrittenBy"] = nl
+            elif 'In Theaters' in liName:
+                movie["InTheaters"] = li.css('div.meta-value time::attr(datetime)').extract_first()
+            elif 'Box Office' in liName:
+                movie["BoxOffice"] = int(re.sub(r'\D+', '', li.css('div.meta-value::text').extract_first()))
+            elif 'Runtime' in liName:
+                movie["Runtime"] = li.css('div.meta-value time::attr(datetime)').extract_first()
+            elif 'Studio' in liName:
+                ll = ""
+                nl = ""
+                for a in li.css('div.meta-value a'):
+                    if ll != "":
+                        ll += ","
+                    if nl != "":
+                        nl += ","
+                    ll += a.css("::attr(href)").extract_first()
+                    nl += a.css("::text").extract_first()
+                movie["webSyte"] = ll
+                movie["Studio"] = nl
+        movie["posterImage"] = response.css('img.posterImage::attr(src)').extract_first()
+

@@ -21,7 +21,9 @@ class MovieItem(scrapy.Item):
     info = scrapy.Field()
     Rating = scrapy.Field()
     Genre = scrapy.Field()
+    DirectedBy_url = scrapy.Field()
     DirectedBy = scrapy.Field()
+    WrittenBy_url = scrapy.Field()
     WrittenBy = scrapy.Field()
     InTheaters = scrapy.Field()
     BoxOffice = scrapy.Field()
@@ -31,9 +33,6 @@ class MovieItem(scrapy.Item):
     webSyte = scrapy.Field()
 
     posterImage = scrapy.Field()
-
-    videos = scrapy.Field()
-    photos = scrapy.Field()
 
 
 class Person(scrapy.Item):
