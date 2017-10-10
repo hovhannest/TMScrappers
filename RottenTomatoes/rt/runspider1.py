@@ -6,4 +6,4 @@ try:
     os.remove(sys.argv[2])
 except:
     pass
-call(["scrapy", "crawl", sys.argv[1], "-o", sys.argv[2]])
+call(["scrapy", "crawl", sys.argv[1]])
