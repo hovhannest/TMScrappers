@@ -31,24 +31,34 @@ class MovieSpider(scrapy.Spider):
                 ll = ""
                 nl = ""
                 for a in li.css('div.meta-value a'):
-                    if ll != "":
+                    if ll != "" or nl != "":
                         ll += ","
-                    if nl != "":
                         nl += ","
-                    ll += a.css("::attr(href)").extract_first()
-                    nl += a.css("::text").extract_first()
+                    name = a.css("::text").extract_first()
+                    url = a.css("::attr(href)").extract_first()
+                    person = Person()
+                    person['name'] = name
+                    person['url'] = url
+                    yield person
+                    ll += url
+                    nl += name
                 movie["DirectedBy_url"] = ll
                 movie["DirectedBy"] = nl
             elif 'Written' in liName:
                 ll = ""
                 nl = ""
                 for a in li.css('div.meta-value a'):
-                    if ll != "":
+                    if ll != "" or nl != "":
                         ll += ","
-                    if nl != "":
                         nl += ","
-                    ll += a.css("::attr(href)").extract_first()
-                    nl += a.css("::text").extract_first()
+                    name = a.css("::text").extract_first()
+                    url = a.css("::attr(href)").extract_first()
+                    person = Person()
+                    person['name'] = name
+                    person['url'] = url
+                    yield person
+                    ll += url
+                    nl += name
                 movie["WrittenBy_url"] = ll
                 movie["WrittenBy"] = nl
             elif 'In Theaters' in liName:
@@ -61,13 +71,43 @@ class MovieSpider(scrapy.Spider):
                 ll = ""
                 nl = ""
                 for a in li.css('div.meta-value a'):
-                    if ll != "":
+                    if ll != "" or nl != "":
                         ll += ","
-                    if nl != "":
                         nl += ","
-                    ll += a.css("::attr(href)").extract_first()
-                    nl += a.css("::text").extract_first()
+                    name = a.css("::text").extract_first()
+                    url = a.css("::attr(href)").extract_first()
+                    # person = Person()
+                    # person['name'] = name
+                    # person['url'] = url
+                    # yield person
+                    ll += url
+                    nl += name
                 movie["webSyte"] = ll
                 movie["Studio"] = nl
         movie["posterImage"] = response.css('img.posterImage::attr(src)').extract_first()
-
+        ll = ""
+        nl = ""
+        cl = ""
+        for div in response.css('div.castSection  div div.media-body'):
+            if ll != "" or nl != "":
+                ll += ","
+                nl += ","
+                cl += ","
+            name = re.findall(r'\S+.*', div.css('a span::text').extract_first())[0]
+            url = div.css('a::attr(href)').extract_first()
+            person = Person()
+            person['name'] = name
+            person['url'] = url
+            yield person
+            ll += url
+            nl += name
+            ccl = ""
+            for s in div.css('span.characters'):
+                if ccl != "":
+                    ccl += "|"
+                ccl += s.css('::text').extract_first()
+            cl += ccl
+        movie["cast_url"] = ll
+        movie["cast"] = nl
+        movie["cast_role"] = cl #div.css('span.characters::text').extract_first()
+        yield movie

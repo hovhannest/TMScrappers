@@ -34,6 +34,10 @@ class MovieItem(scrapy.Item):
 
     posterImage = scrapy.Field()
 
+    cast_url = scrapy.Field()
+    cast = scrapy.Field()
+    cast_role = scrapy.Field()
+
 
 class Person(scrapy.Item):
     name = scrapy.Field()
