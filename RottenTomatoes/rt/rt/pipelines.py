@@ -48,7 +48,7 @@ class RtPipeline(object):
         for filename in self.filesList:
             # given I am using Windows i need to elimate the blank lines in the csv file
             print("Starting csv blank line cleaning")
-            with open(filename % spider.name, 'r') as f:
+            with open(filename % spider.name, 'r', encoding="utf8") as f:
                 reader = csv.reader(f)
                 original_list = list(reader)
                 cleaned_list = list(filter(None, original_list))
