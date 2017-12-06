@@ -65,7 +65,8 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'rt.pipelines.RtPipeline': 300,
+   'rt.pipelines.MsSqlPipeline': 300,
+   # 'rt.pipelines.RtPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

@@ -9,6 +9,7 @@ from scrapy import signals
 from scrapy.exporters import CsvItemExporter
 import inspect
 from rt.items import *
+from rt.mssqlpipeline import MsSqlPipeline
 
 class RtPipeline(object):
     def __init__(self):

@@ -38,7 +38,40 @@ class MovieItem(scrapy.Item):
     cast = scrapy.Field()
     cast_role = scrapy.Field()
 
+    RTMainScore = scrapy.Field()
+    RTTopScore = scrapy.Field()
+    RTCAvRating = scrapy.Field()
+    RTFresh = scrapy.Field()
+    RTRotten = scrapy.Field()
+    RTAAvRating = scrapy.Field()
+    RTUserRatings = scrapy.Field()
+    Season = scrapy.Field()
+    Episode = scrapy.Field()
+    TVShow = scrapy.Field()
+
 
 class Person(scrapy.Item):
     name = scrapy.Field()
     url = scrapy.Field()
+    birthday = scrapy.Field()
+    birthplace = scrapy.Field()
+    bio = scrapy.Field()
+    photo_url = scrapy.Field()
+    Screenwriter = scrapy.Field()
+    Director = scrapy.Field()
+    Actor = scrapy.Field()
+    Producer = scrapy.Field()
+    ExecutiveProducer = scrapy.Field()
+
+
+class PersonUrl(scrapy.Item):
+    url = scrapy.Field()
+
+class PersonMovie(scrapy.Item):
+    Person_URL = scrapy.Field()
+    Movie_URL = scrapy.Field()
+    Character = scrapy.Field()
+    ProfessionID = scrapy.Field()
+
+class EndItem(scrapy.Item):
+    tvar = scrapy.Field()
